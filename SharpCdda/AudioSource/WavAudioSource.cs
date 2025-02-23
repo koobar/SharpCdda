@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -90,39 +89,9 @@ namespace SharpCdda.AudioSource
             }
         }
 
-        public int Read(IntPtr pBuffer, int count)
+        public int Read(byte[] buffer, int offset, int count)
         {
-            const int bufferSize = 1024;
-            byte[] buffer = new byte[bufferSize];
-            IntPtr pOffset = pBuffer;
-            int bytesRead = 0;
-
-            while (bytesRead < count)
-            {
-                // Read PCM data to buffer.
-                int read = this.streamReader.Read(buffer, 0, Math.Min(bufferSize, count));
-
-                // Copy PCM data from buffer to unmanaged memory.
-                Marshal.Copy(buffer, 0, pOffset, read);
-                bytesRead += read;
-                pOffset = IntPtr.Add(pOffset, read);
-
-                // If the buffer size and the number of bytes actually read into the buffer don't match,
-                // it is treated as the end of the stream.
-                if (read != bufferSize)
-                {
-                    break;
-                }
-            }
-
-            int diff = count - bytesRead;
-            for (int i = 0; i < diff; ++i)
-            {
-                Marshal.WriteByte(pOffset, 0);
-                pOffset = IntPtr.Add(pOffset, 1);
-            }
-
-            return bytesRead;
+            return this.streamReader.Read(buffer, offset, count);
         }
 
         public void Dispose()

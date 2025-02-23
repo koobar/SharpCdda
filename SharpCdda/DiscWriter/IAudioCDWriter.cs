@@ -3,7 +3,7 @@ using System;
 
 namespace SharpCdda.DiscWriter
 {
-    public interface IAudioCDWriter
+    public interface IAudioCDWriter : IDisposable
     {
         // Events
         event EventHandler WriteCompleted;

@@ -35,11 +35,12 @@ namespace SharpCdda.AudioSource
         int Position { set; get; }
 
         /// <summary>
-        /// Read PCM data and store it in unmanaged memory.
+        /// Read PCM 44.1Khz, 16bits, Stereo data to buffer.
         /// </summary>
-        /// <param name="pBuffer">The pointer of unmanaged memory</param>
-        /// <param name="bytesToRead">Bytes to read.</param>
-        /// <returns>Number of bytes actually read</returns>
-        int Read(IntPtr pBuffer, int bytesToRead);
+        /// <param name="buffer">PCM data buffer.</param>
+        /// <param name="offset">Buffer start offset.</param>
+        /// <param name="count">Bytes to read.</param>
+        /// <returns>Bytes read.</returns>
+        int Read(byte[] buffer, int offset, int count);
     }
 }

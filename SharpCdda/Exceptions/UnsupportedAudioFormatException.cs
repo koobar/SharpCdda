@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SharpCdda.DiscWriter
+namespace SharpCdda.Exceptions
 {
     public class UnsupportedAudioFormatException : Exception
     {
